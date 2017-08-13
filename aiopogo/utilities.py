@@ -22,17 +22,18 @@ def get_time_ms():
 
 
 class IdGenerator:
-    '''Lehmer random number generator'''
+    '''New C++ based generator'''
     M = 0x7fffffff  # 2^31 - 1 (A large prime number)
     A = 16807       # Prime root of M
 
-    def __init__(self, seed=16807):
-        self.seed = seed
+    def __init__(self):
+        self.high = 1
         self.request = 1
 
     def next(self):
-        self.seed = (self.seed * self.A) % self.M
-        return self.seed
+        # self.rpcIdHigh = (Math.pow(7, 5) * self.rpcIdHigh) % (Math.pow(2, 31) - 1);
+        self.high = (7**5 * self.high) % (2**31)-1
+        return self.high
 
     def request_id(self):
         self.request += 1
